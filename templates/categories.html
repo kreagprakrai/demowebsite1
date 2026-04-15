@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จัดการหมวดหมู่</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 900px;
+            margin: 30px auto;
+        }
+
+        .box {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 8px;
+        }
+
+        p.sub {
+            margin-top: 0;
+            color: #6b7280;
+            margin-bottom: 24px;
+        }
+
+        .flash {
+            background: #ecfdf5;
+            color: #065f46;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .btn-save {
+            background: #2563eb;
+        }
+
+        .btn-back {
+            background: #6b7280;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            overflow: hidden;
+        }
+
+        thead {
+            background: #e5e7eb;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .empty {
+            text-align: center;
+            color: #6b7280;
+            padding: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <h1>จัดการหมวดหมู่</h1>
+            <p class="sub">เพิ่มหมวดหมู่เพื่อใช้ตอนเพิ่มหรือแก้ไขสินค้า</p>
+
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="flash">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            <form method="POST">
+                <div class="form-row">
+                    <input type="text" name="name" placeholder="เช่น เครื่องดื่ม / อุปกรณ์ / วัตถุดิบ" required>
+                    <button type="submit" class="btn btn-save">เพิ่มหมวดหมู่</button>
+                    <a href="{{ url_for('index') }}" class="btn btn-back">กลับหน้าหลัก</a>
+                </div>
+            </form>
+
+            {% if categories %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ชื่อหมวดหมู่</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for category in categories %}
+                    <tr>
+                        <td>{{ category.id }}</td>
+                        <td>{{ category.name }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="empty">ยังไม่มีหมวดหมู่ในระบบ</div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

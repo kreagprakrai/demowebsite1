@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แก้ไขสินค้า</title>
+    <title>เพิ่มสินค้า</title>
     <style>
         * {
             box-sizing: border-box;
@@ -71,22 +71,22 @@
 </head>
 <body>
     <div class="container">
-        <h2>แก้ไขสินค้า</h2>
+        <h2>เพิ่มสินค้า</h2>
 
         <form method="POST">
             <div class="form-group">
                 <label>ชื่อสินค้า</label>
-                <input type="text" name="name" value="{{ product.name }}" required>
+                <input type="text" name="name" required>
             </div>
 
             <div class="form-group">
                 <label>ราคา</label>
-                <input type="number" name="price" step="0.01" min="0" value="{{ product.price }}" required>
+                <input type="number" name="price" step="0.01" min="0" required>
             </div>
 
             <div class="form-group">
                 <label>จำนวนคงเหลือ</label>
-                <input type="number" name="stock" min="0" value="{{ product.stock }}" required>
+                <input type="number" name="stock" min="0" value="0" required>
             </div>
 
             <div class="form-group">
@@ -94,15 +94,13 @@
                 <select name="category_id">
                     <option value="">เลือกหมวดหมู่</option>
                     {% for category in categories %}
-                    <option value="{{ category.id }}" {% if category.id == product.category_id %}selected{% endif %}>
-                        {{ category.name }}
-                    </option>
+                    <option value="{{ category.id }}">{{ category.name }}</option>
                     {% endfor %}
                 </select>
             </div>
 
             <div class="actions">
-                <button type="submit" class="btn btn-save">อัปเดต</button>
+                <button type="submit" class="btn btn-save">บันทึก</button>
                 <a href="{{ url_for('index') }}" class="btn btn-back">กลับ</a>
             </div>
         </form>
