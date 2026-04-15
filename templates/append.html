@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Edit Cake</title>
+    <title>Add Cake</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -129,62 +129,33 @@
         .back-link:hover {
             color: #764ba2;
         }
-
-        .cake-preview {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-
-        .cake-preview img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-
-        .cake-preview h3 {
-            margin: 0;
-            color: #333;
-            font-size: 18px;
-        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="box">
-        <h2>✏️ Edit Cake</h2>
-
-        {% if cake.image %}
-        <div class="cake-preview">
-            <img src="{{ cake.image }}" alt="{{ cake.name }}">
-            <h3>{{ cake.name }}</h3>
-        </div>
-        {% endif %}
+        <h2>➕ Add New Cake</h2>
 
         <form method="POST">
             <div class="form-group">
                 <label for="name">🍰 Cake Name</label>
-                <input id="name" name="name" value="{{ cake.name }}" required placeholder="Enter cake name">
+                <input id="name" name="name" placeholder="Enter cake name" required>
             </div>
 
             <div class="form-group">
                 <label for="price">💰 Price (THB)</label>
-                <input id="price" name="price" type="number" step="0.01" min="0" value="{{ cake.price }}" required placeholder="0.00">
+                <input id="price" name="price" type="number" step="0.01" min="0" placeholder="0.00" required>
             </div>
 
             <div class="form-group">
                 <label for="image">🖼️ Image URL</label>
-                <input id="image" name="image" value="{{ cake.image }}" placeholder="https://example.com/image.jpg">
+                <input id="image" name="image" placeholder="https://example.com/image.jpg">
             </div>
 
             <div class="form-group">
                 <label for="stock">📦 Stock Quantity</label>
-                <input id="stock" name="stock" type="number" min="0" value="{{ cake.stock or 0 }}" required placeholder="0">
+                <input id="stock" name="stock" type="number" placeholder="Stock amount" min="0" value="0" required>
             </div>
 
             <div class="form-group">
@@ -192,12 +163,12 @@
                 <select id="category_id" name="category_id">
                     <option value="">Select Category</option>
                     {% for category in categories %}
-                    <option value="{{ category.id }}" {% if category.id == cake.category_id %}selected{% endif %}>{{ category.name }}</option>
+                    <option value="{{ category.id }}">{{ category.name }}</option>
                     {% endfor %}
                 </select>
             </div>
 
-            <button type="submit">✅ Update Cake</button>
+            <button type="submit">✅ Add Cake</button>
         </form>
 
         <a href="/" class="back-link">⬅️ Back to Menu</a>
